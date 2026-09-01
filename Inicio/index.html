@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMAPH - Escola Mineira de Atendimento Pré-Hospitalar</title>
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS DE CORES & RESET
+           ========================================================================== */
+        :root {
+            --bg-header: #181616;       /* Cor base escura exata da logo */
+            --bg-body: #0d0c0c;         /* Fundo escuro principal */
+            --bg-card: #1f1c1c;         /* Fundo dos cartões */
+            --gold-primary: #d4af37;    /* Dourado em destaque */
+            --gold-light: #f3e5ab;      /* Dourado claro/textos */
+            --red-accent: #c0392b;      /* Vermelho de emergência/destaque */
+            --text-light: #f5f5f5;      /* Texto principal */
+            --text-muted: #b3b3b3;      /* Texto secundário */
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO INTEGRADO COM A LOGO E NOME
+           ========================================================================== */
+        header {
+            background-color: var(--bg-header);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid var(--gold-primary);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Bloco Marca: Logo + Nome da Escola */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-blend {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-header);
+            overflow: hidden;
+        }
+
+        .logo-blend img {
+            height: 70px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1;
+            
+            /* Efeito Metálico em Dourado */
+            background: linear-gradient(
+                135deg, 
+                #9a7b1c 0%, 
+                #f3e5ab 25%, 
+                #d4af37 50%, 
+                #ffffff 75%, 
+                #9a7b1c 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* Sombras para dar relevo e profundidade 3D */
+            filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.9));
+        }
+
+        .brand-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Links de Navegação */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Botão de Destaque no Menu */
+        .btn-header {
+            background: linear-gradient(135deg, var(--gold-primary), #9a7b1c);
+            color: #000 !important;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 700 !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        }
+
+        .btn-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ==========================================================================
+           3. SEÇÃO HERO (IMPACTO)
+           ========================================================================== */
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, #2a1a1a 0%, var(--bg-body) 70%);
+            border-bottom: 1px solid #333;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--red-accent);
+            color: #fff;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+        }
+
+        .btn-cta:hover {
+            background-color: #a93226;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           4. SEÇÕES GERAIS (ESTILIZAÇÃO DE TÍTULOS E CARDS)
+           ========================================================================== */
+        .services, .gallery-section, .about-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--red-accent);
+            margin: 10px auto 0;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 25px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--red-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card h3 {
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .card ul {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .card ul li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--gold-primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           5. SEÇÃO GALERIA DE FOTOS (AMPLIADA)
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO SOBRE A ESCOLA E INSTRUTORES
+           ========================================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .about-card {
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gold-primary);
+        }
+
+        .about-card h3 {
+            color: var(--gold-primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .about-highlight {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .about-highlight li {
+            position: relative;
+            padding-left: 20px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .about-highlight li::before {
+            content: '✓';
+            color: var(--red-accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .brand-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#inicio" class="brand-container">
+                <div class="logo-blend">
+                    <img src="../assets/estrela emaph.png" alt="EMAPH Logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">EMAPH</span>
+                    <span class="brand-subtitle">Escola Mineira de Atendimento Pré-Hospitalar</span>
+                </div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="../Matricule-se/index.html" class="btn-header">Inscreva-se</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Capacitação de Elite Para Área da Saúde</h1>
+        <p>Capacitação técnica do básico ao avançado com foco em excelência operacional, salvamento de vidas e desenvolvimento pessoal.</p>
+        <a href="#cursos" class="btn-cta">Conheça Nossos Cursos</a>
+    </section>
+
+    <section class="services" id="cursos">
+        <h2 class="section-title">Nossos Cursos</h2>
+        <div class="grid-cards">
+            
+            <div class="card">
+                <span class="card-tag">Atendimento Pré-Hospitalar</span>
+                <h3>APH</h3>
+                <ul>
+                    <li>SBV - Suporte Básico de Vida</li>
+                    <li>SAV - Suporte Avançado de Vida</li>
+                    <li>Retirada Veicular</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Procedimentos Práticos</span>
+                <h3>Técnicas Avançadas</h3>
+                <ul>
+                    <li>Vias Aéreas Avançadas</li>
+                    <li>Acesso Venoso Periférico</li>
+                    <li>Manipulação e Administração de Medicações</li>
+                </ul>
+            </div>
+
+            <div class="card" id="palestras">
+                <span class="card-tag">Palestras & Treinamentos</span>
+                <h3>Desenvolvimento</h3>
+                <ul>
+                    <li>Primeiros Socorros</li>
+                    <li>Desenvolvimento Pessoal e Liderança</li>
+                    <li>Controle Emocional</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="gallery-section" id="galeria">
+        <h2 class="section-title">Treinamentos na Prática</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="../assets/FOTO1.jpeg" alt="Treinamento Prático APH">
+            </div>
+            <div class="gallery-item">
+                <img src="../assets/FOTO2.jpeg" alt="Simulação de Salvamento">
+            </div>
+            <div class="gallery-item">
+                <img src="../assets/FOTO3.jpeg" alt="Aulas Teóricas e Práticas">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="sobre">
+        <h2 class="section-title">Sobre a EMAPH</h2>
+        <div class="about-grid">
+            
+            <div class="about-card">
+                <h3>Nossa História e Propósito</h3>
+                <p>A <strong>EMAPH (Escola Mineira de Atendimento Pré-Hospitalar)</strong> nasceu com a missão de formar profissionais de alta performance preparados para atuar com agilidade, precisão e controle emocional nas mais diversas situações de urgência e emergência.</p>
+                <p>Combinamos metodologias práticas, simulados realísticos e conceitos atualizados para garantir que cada aluno desenvolva a confiança necessária para salvar vidas.</p>
+            </div>
+
+            <div class="about-card">
+                <h3>Corpo Docente e Instrutores</h3>
+                <p>Nossos treinamentos são ministrados por uma equipe highly qualificada, composta por profissionais com sólida experiência de campo no atendimento pré-hospitalar e resgate.</p>
+                <ul class="about-highlight">
+                    <li>Instrutores atuantes na linha de frente do APH e emergência</li>
+                    <li>Foco total em simulação prática e tomada de decisão ágil</li>
+                    <li>Metodologia focada em conduta técnica e desenvolvimento pessoal</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>

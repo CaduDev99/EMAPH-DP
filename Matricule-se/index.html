@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrícula - EMAPH</title>
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS DE CORES & RESET
+           ========================================================================== */
+        :root {
+            --bg-header: #181616;
+            --bg-body: #0d0c0c;
+            --bg-card: #1f1c1c;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --red-accent: #c0392b;
+            --text-light: #f5f5f5;
+            --text-muted: #b3b3b3;
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO COM BOTÃO VOLTAR
+           ========================================================================== */
+        header {
+            background-color: var(--bg-header);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid var(--gold-primary);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-blend img {
+            height: 70px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1;
+            background: linear-gradient(
+                135deg, 
+                #9a7b1c 0%, 
+                #f3e5ab 25%, 
+                #d4af37 50%, 
+                #ffffff 75%, 
+                #9a7b1c 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.9));
+        }
+
+        .brand-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--gold-primary);
+            color: #000;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ==========================================================================
+           3. FORMULÁRIO DE MATRÍCULA
+           ========================================================================== */
+        .form-section {
+            max-width: 650px;
+            margin: 50px auto 0;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--red-accent));
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-group.row .field {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #121010;
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        select option {
+            background-color: var(--bg-card);
+            color: var(--text-light);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--red-accent), #922b21);
+            color: #fff;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #a93226, #7b241c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(192, 57, 43, 0.6);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .brand-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-group.row {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="../Inicio/index.html" class="brand-container">
+                <div class="logo-blend">
+                    <img src="../assets/estrela emaph.png" alt="EMAPH Logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">EMAPH</span>
+                    <span class="brand-subtitle">Escola Mineira de Atendimento Pré-Hospitalar</span>
+                </div>
+            </a>
+
+            <a href="../Inicio/index.html" class="btn-back">
+                Voltar ao Início
+            </a>
+        </div>
+    </header>
+
+    <main class="form-section">
+        <div class="form-card">
+            <h1 class="form-title">Ficha de Inscrição</h1>
+            <p class="form-subtitle">Preencha os dados abaixo para garantir a sua vaga</p>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="curso">Curso Desejado</label>
+                    <select id="curso" name="curso" required>
+                        <option value="" disabled selected>Carregando cursos disponíveis...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="form-group row">
+                    <div class="field">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                    </div>
+                    <div class="field">
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Rua, Número, Bairro, Cidade - UF" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pagamento">Forma de Pagamento</label>
+                    <select id="pagamento" name="pagamento" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="pix">Pix</option>
+                        <option value="cartao_credito">Cartão de Crédito</option>
+                        <option value="cartao_debito">Cartão de Débito</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Inscrever-se</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Cursos padrão de inicialização (caso não haja dados cadastrados ainda)
+        const cursosPadrao = [
+            "SBV - Suporte Básico de Vida",
+            "SAV - Suporte Avançado de Vida",
+            "Vias Aéreas Avançadas",
+            "Acesso Venoso Periférico",
+            "Manipulação e Administração de Medicações",
+            "Manejo de Emergências Clínicas e Trauma",
+            "Palestra: Primeiros Socorros e Liderança"
+        ];
+
+        function carregarCursos() {
+            const selectCurso = document.getElementById("curso");
+            let cursosSalvos = JSON.parse(localStorage.getItem("emaph_cursos"));
+
+            // Se for o primeiro acesso, cria a lista padrão no localStorage
+            if (!cursosSalvos || cursosSalvos.length === 0) {
+                cursosSalvos = cursosPadrao;
+                localStorage.setItem("emaph_cursos", JSON.stringify(cursosSalvos));
+            }
+
+            // Limpa as opções anteriores e adiciona a opção padrão
+            selectCurso.innerHTML = '<option value="" disabled selected>Selecione o curso desejado</option>';
+
+            // Preenche o select com os cursos armazenados
+            cursosSalvos.forEach(curso => {
+                const option = document.createElement("option");
+                option.value = curso;
+                option.textContent = curso;
+                selectCurso.appendChild(option);
+            });
+        }
+
+        // Executa o carregamento ao abrir a página
+        document.addEventListener("DOMContentLoaded", carregarCursos);
+    </script>
+
+</body>
+</html>
